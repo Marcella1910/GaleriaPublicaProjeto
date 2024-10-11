@@ -40,4 +40,6 @@ dependencies {
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)
+    implementation (libs.paging.guava)
+    implementation (libs.paging.runtime)
 }
