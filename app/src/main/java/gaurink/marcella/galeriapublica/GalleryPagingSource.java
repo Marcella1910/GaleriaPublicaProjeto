@@ -3,6 +3,7 @@ package gaurink.marcella.galeriapublica;
 import androidx.annotation.NonNull;
 import androidx.paging.ListenableFuturePagingSource;
 import androidx.paging.PagingSource;
+import androidx.paging.PagingState;
 
 import com.google.common.util.concurrent.ListenableFuture;
 import com.google.common.util.concurrent.ListeningExecutorService;
@@ -10,6 +11,7 @@ import com.google.common.util.concurrent.MoreExecutors;
 
 import java.io.FileNotFoundException;
 import java.util.List;
+import java.util.concurrent.Callable;
 import java.util.concurrent.Executors;
 
 import javax.annotation.Nullable;
@@ -23,15 +25,12 @@ public class GalleryPagingSource extends ListenableFuturePagingSource<Integer, I
         this.galleryRepository = galleryRepository;
     }
 
-    @Nullable
+
+    @androidx.annotation.Nullable
     @Override
-    public Integer getRefreshKey(@NonNull PagingSource<Integer, ImageData> pagingState) {
+    public Integer getRefreshKey(@NonNull PagingState<Integer, ImageData> pagingState) {
         return null;
     }
-
-    @Nullable
-    @Override
-    public ListenableFuturePagingSource<Integer, ImageData>>
 
     @NonNull
     @Override
@@ -50,12 +49,13 @@ public class GalleryPagingSource extends ListenableFuturePagingSource<Integer, I
             offSet = ((nextPageNumber - 1) * loadParams.getLoadSize()) + (initialLoadSize - loadParams.getLoadSize());
         }
 
-        ListeningExecutorService service = MoreExecutors.listeningDecorator(Executors.newSingleThreadExecutor()
+        ListeningExecutorService service = MoreExecutors.listeningDecorator(Executors.newSingleThreadExecutor();
         Integer finalOffSet = offSet;
         Integer finalNextPageNumber = nextPageNumber;
-        ListenableFuture<LoadResult<Integer, ImageData>> if = service.submit(new Callable<LoadResult<Integer, ImageData>>()) {
+        ListenableFuture<LoadResult<Integer, ImageData>> lf = service.submit(new Callable<LoadResult<Integer, ImageData>>() {
             @Override
-            public LoadResult<Integer, ImageData> call() {
+            public LoadResult<Integer, ImageData> call() throws Exception {
+
                 List<ImageData> imageDataList = null;
                 try {
                     imageDataList = galleryRepository.loadImageData(loadParams.getLoadSize(), finalOffSet);
@@ -69,7 +69,8 @@ public class GalleryPagingSource extends ListenableFuturePagingSource<Integer, I
                 }
             }
         });
-
-        return if;
+        return lf;
     }
+
+
 }

@@ -17,10 +17,6 @@ public class MainViewModel extends AndroidViewModel {
 
     int navigationOpSelected = R.id.gridViewOp;
 
-    public MainViewModel(@NonNull Application application) {
-        super(application);
-    }
-
     public int getNavigationOpSelected() {
         return navigationOpSelected;
     }
@@ -35,9 +31,9 @@ public class MainViewModel extends AndroidViewModel {
         super(application);
         GalleryRepository galleryRepository = new GalleryRepository(application);
         GalleryPagingSource galleryPagingSource = new GalleryPagingSource(galleryRepository);
-        Pager<Integer, ImageData> pager = new Pager<>(new PagingConfig(10) () -> galleryPagingSource);
+        Pager<Integer, ImageData> pager = new Pager<>(new PagingConfig(10), () -> galleryPagingSource);
         CoroutineScope viewModelScope = ViewModelKt.getViewModelScope(this);
-        pageLv = PagingLiveData.catchedIn(PagingLiveData.getLiveData(pager), viewModelScope);
+        pageLv = PagingLiveData.cachedIn(PagingLiveData.getLiveData(pager), viewModelScope);
     }
 
     public LiveData<PagingData<ImageData>> getPageLv() {
