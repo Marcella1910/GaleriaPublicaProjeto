@@ -49,7 +49,7 @@ public class GalleryPagingSource extends ListenableFuturePagingSource<Integer, I
             offSet = ((nextPageNumber - 1) * loadParams.getLoadSize()) + (initialLoadSize - loadParams.getLoadSize());
         }
 
-        ListeningExecutorService service = MoreExecutors.listeningDecorator(Executors.newSingleThreadExecutor();
+        ListeningExecutorService service = MoreExecutors.listeningDecorator(Executors.newSingleThreadExecutor());
         Integer finalOffSet = offSet;
         Integer finalNextPageNumber = nextPageNumber;
         ListenableFuture<LoadResult<Integer, ImageData>> lf = service.submit(new Callable<LoadResult<Integer, ImageData>>() {
