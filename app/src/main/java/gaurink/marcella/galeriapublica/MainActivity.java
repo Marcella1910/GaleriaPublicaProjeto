@@ -51,15 +51,13 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 vm.setNavigationOpSelected(item.getItemId());
-                switch (item.getItemId()) {
-                    case R.id.gridViewOp:
-                        GridViewFragment gridViewFragment = GridViewFragment.newInstance();
-                        setFragment(gridViewFragment);
-                        break;
-                    case R.id.listViewOp:
-                        ListViewFragment listViewFragment = ListViewFragment.newInstance();
-                        setFragment(listViewFragment);
-                        break;
+                if (item.getItemId() == R.id.gridViewOp) {
+                    GridViewFragment gridViewFragment = GridViewFragment.newInstance();
+                    setFragment(gridViewFragment);
+                }
+                if(item.getItemId() == R.id.listViewOp) {
+                    ListViewFragment listViewFragment = ListViewFragment.newInstance();
+                    setFragment(listViewFragment);
                 }
                 return true;
             }
@@ -74,6 +72,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
+    //pedindo permissao para leitura do armazenamento publico
     protected void onResume() {
         super.onResume();
         List<String> permissions = new ArrayList<>();
@@ -81,6 +80,7 @@ public class MainActivity extends AppCompatActivity {
         checkForPermissions(permissions);
     }
 
+    //checando permissoes
     private void checkForPermissions(List<String> permissions) {
         List<String> permissionsNotGranted = new ArrayList<>();
 
@@ -89,10 +89,11 @@ public class MainActivity extends AppCompatActivity {
                 permissionsNotGranted.add(permission);
             }
         }
-
+        //o que acontece caso o usuario permitir
         if (permissionsNotGranted.size() > 0) {
             requestPermissions(permissionsNotGranted.toArray(new String[permissionsNotGranted.size()]), RESULT_REQUEST_PERMISSION);
         }
+        //oq acontece se nao
         else {
 
         }

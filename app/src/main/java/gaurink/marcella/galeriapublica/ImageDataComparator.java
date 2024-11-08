@@ -3,6 +3,7 @@ package gaurink.marcella.galeriapublica;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.DiffUtil;
 
+//mostra ao Adapter como verificar se os dois ImageData sao iguais
 class ImageDataComparator extends DiffUtil.ItemCallback<ImageData>{
     @Override
     public boolean areItemsTheSame(@NonNull ImageData oldItem, @NonNull ImageData newItem) {

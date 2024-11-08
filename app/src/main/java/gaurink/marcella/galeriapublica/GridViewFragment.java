@@ -23,6 +23,9 @@ import android.view.ViewGroup;
  */
 public class GridViewFragment extends Fragment {
 
+    private MainViewModel mViewModel;
+    private View view;
+
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -62,7 +65,7 @@ public class GridViewFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         mViewModel = new ViewModelProvider(getActivity()).get(MainViewModel.class);
         GridAdapter gridAdapter = new GridAdapter(new ImageDataComparator());
-        LiveData<PagingData<ImageData>> liveData = mViewModel.getPagelv();
+        LiveData<PagingData<ImageData>> liveData = mViewModel.getPageLv();
         liveData.observe(getViewLifecycleOwner(), new Observer<PagingData<ImageData>>() {
             @Override
             public void onChanged(PagingData<ImageData> imageDataPagingData) {

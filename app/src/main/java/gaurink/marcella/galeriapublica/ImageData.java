@@ -5,6 +5,7 @@ import android.net.Uri;
 
 import java.util.Date;
 
+//guarda os dados da foto
 public class ImageData {
     public Uri uri;
     public Bitmap thumb;

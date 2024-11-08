@@ -26,12 +26,14 @@ public class GalleryRepository {
 
     public List<ImageData> loadImageData(Integer limit, Integer offset) throws FileNotFoundException {
         List<ImageData> imageDataList = new ArrayList<>();
-        int w = (int)context.getResources().getDimension(R.dimen.im_width);
-        int h = (int)context.getResources().getDimension(R.dimen.im_height);
+        int w = 100;
+        int h = 100;
 
+        //criando as "caixas" da galeria, meio como o sql
         String[] projection = new String[] {
                 MediaStore.Images.Media._ID,
                 MediaStore.Images.Media.DISPLAY_NAME,
+                MediaStore.Images.Media.DATE_ADDED,
                 MediaStore.Images.Media.SIZE
         };
 
@@ -58,10 +60,11 @@ public class GalleryRepository {
                     projection,
                     selection,
                     selectionArgs,
-                    sort + "ASC + LIMIT" + String.valueOf(limit) + "OFFSET" + String.valueOf(offset));
+                    sort + "ASC + LIMIT " + String.valueOf(limit) + " OFFSET " + String.valueOf(offset));
 
         }
 
+        //coloca os nomes das "caixas"
         int idColumn = cursor.getColumnIndex(MediaStore.Images.Media._ID);
         int nameColumn = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DISPLAY_NAME);
         int dateAddedColumn = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATE_ADDED);
